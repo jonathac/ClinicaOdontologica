@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.jonatha.odontologico.domain.Cliente;
+import br.com.jonatha.odontologico.dto.ClienteNewDTO;
 import br.com.jonatha.odontologico.services.ClienteService;
 
 @RestController
@@ -30,7 +33,8 @@ public class ClienteResource {
 
 	// CREATE
 	@PostMapping()
-	public ResponseEntity<Void> inserirCliente(@RequestBody Cliente obj) { // inserir @valid e corrigir erro
+	public ResponseEntity<Void> inserirCliente(@Valid @RequestBody ClienteNewDTO ClienteDTO) { // inserir @valid e corrigir erro
+		Cliente obj = service.fromDTO(ClienteDTO);	
 		obj = service.inserirCliente(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
