@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.jonatha.odontologico.domain.Cliente;
+import br.com.jonatha.odontologico.domain.Consulta;
 import br.com.jonatha.odontologico.domain.Endereco;
 import br.com.jonatha.odontologico.domain.Usuario;
 import br.com.jonatha.odontologico.domain.enums.Perfil;
 import br.com.jonatha.odontologico.repositories.ClienteRepository;
+import br.com.jonatha.odontologico.repositories.ConsultaRepository;
 import br.com.jonatha.odontologico.repositories.EnderecoRepository;
 import br.com.jonatha.odontologico.repositories.UsuarioRepository;
 
@@ -31,9 +33,13 @@ public class DBService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
 	
+	@Autowired
+	ConsultaRepository consultaRepository;
+	
 	public void instantiateTestDatabase() throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-	
+		SimpleDateFormat sdfHH = new SimpleDateFormat("HH:mm");
+		
 		Usuario us1 = new Usuario("Climed", "climedparnamirim@gmail.com", "climedrecepcao");
 		us1.addPerfil(Perfil.ADMIN);
 		usuarioRepository.save(us1);
@@ -44,8 +50,12 @@ public class DBService {
 		Endereco e1 = new Endereco("59155370", "Rua estrada para Cajupiranga", "5", null, "Jardim Planalto", "Parnamirim", "RN", cli1);
 		cli1.getEndereco().addAll(Arrays.asList(e1));
 		
+		Consulta cons1 = new Consulta(sdf.parse("30/03/2022"), sdfHH.parse("10:00"), "Manutenção Aparelho",cli1);
+		cli1.getConsulta().add(cons1);
+		
 		clienteRepository.saveAll(Arrays.asList(cli1));
 		enderecoRepository.saveAll(Arrays.asList(e1));
+		consultaRepository.save(cons1);
 			
 	}
 	

@@ -32,6 +32,9 @@ public class Cliente extends Usuario {
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> endereco = new ArrayList<>();
 
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private List<Consulta> consulta = new ArrayList<>();
+	
 	// Coleção para armazenar telefones
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
@@ -109,6 +112,14 @@ public class Cliente extends Usuario {
 
 	public void setNumeroCarteirinha(String numeroCarteirinha) {
 		this.numeroCarteirinha = numeroCarteirinha;
+	}
+
+	public List<Consulta> getConsulta() {
+		return consulta;
+	}
+
+	public void setConsulta(List<Consulta> consulta) {
+		this.consulta = consulta;
 	}
 	
 
