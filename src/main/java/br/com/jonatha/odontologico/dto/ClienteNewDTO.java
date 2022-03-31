@@ -5,10 +5,12 @@ import java.util.Date;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
-import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 public class ClienteNewDTO implements Serializable{
 	private static final long serialVersionUID = 1L;
@@ -18,8 +20,8 @@ public class ClienteNewDTO implements Serializable{
 	private String nome;
 	
 	
-	//@JsonFormat(pattern = "dd/MM/yyyy")
-	@DateTimeFormat(pattern = "dd/MM/yyyy")//adicionar messagem de erro
+	@JsonFormat(pattern = "dd/MM/yyyy")
+	@Past(message = "Insira uma data válida")
 	private Date dataNascimento;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
