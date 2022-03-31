@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.com.jonatha.odontologico.domain.Usuario;
+import br.com.jonatha.odontologico.dto.UsuarioNewDTO;
 import br.com.jonatha.odontologico.repositories.UsuarioRepository;
 
 @Service
@@ -47,5 +48,13 @@ public class UsuarioService {
 	//DELETE
 	public void delete(Integer id) {
 		repo.deleteById(id);
+	}
+	
+	public Usuario fromDto(UsuarioNewDTO objDto) {
+		Usuario obj = new Usuario();
+		obj.setNome(objDto.getNome());
+		obj.setEmail(objDto.getEmail());
+		obj.setSenha(objDto.getSenha());
+		return obj;
 	}
 }
