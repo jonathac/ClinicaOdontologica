@@ -20,8 +20,8 @@ public class ClienteNewDTO implements Serializable{
 	private String nome;
 	
 	
-	@JsonFormat(pattern = "dd/MM/yyyy")
 	@Past(message = "Insira uma data válida")
+	@JsonFormat(pattern = "dd/MM/yyyy")
 	private Date dataNascimento;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")

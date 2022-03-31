@@ -44,7 +44,7 @@ public class DBService {
 		us1.addPerfil(Perfil.ADMIN);
 		usuarioRepository.save(us1);
 		
-		Cliente cli1 = new Cliente("Jonatha Cassio", "jonathacassio@gmail.com", "123456", "09476645482", false, null, null, sdf.parse("16/02/1993"));
+		Cliente cli1 = new Cliente("Jonatha Cassio", "joaobatista@gmail.com", "123456", "43073985050", false, null, null, sdf.parse("16/02/1993"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
 		Endereco e1 = new Endereco("59155370", "Rua estrada para Cajupiranga", "5", null, "Jardim Planalto", "Parnamirim", "RN", cli1);

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import br.com.jonatha.odontologico.domain.Cliente;
 import br.com.jonatha.odontologico.domain.Consulta;
+import br.com.jonatha.odontologico.dto.ConsultaNewDTO;
+import br.com.jonatha.odontologico.services.ClienteService;
 import br.com.jonatha.odontologico.services.ConsultaService;
 
 @RestController
@@ -28,9 +33,18 @@ public class ConsultaResource {
 	@Autowired
 	ConsultaService service;
 
+	@Autowired
+	ClienteService clienteService;
+	
 	// CREATE
-	@PostMapping()
-	public ResponseEntity<Void> inserirConsulta(@RequestBody Consulta obj) { // inserir @valid e corrigir erro
+	@PostMapping("/{id}")
+	public ResponseEntity<?> inserirConsulta(@Valid @RequestBody ConsultaNewDTO objDTO, @PathVariable Integer id) {
+		Optional<Cliente> cli = clienteService.findById(id);
+		if (cli.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		Consulta obj = service.fromDTO(objDTO);
+		obj.setCliente(cli.get());
 		obj = service.inserirConsulta(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).build();
@@ -56,12 +70,14 @@ public class ConsultaResource {
 
 	// UPDATE
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarId(@PathVariable Integer id, @RequestBody Consulta obj) {
+	public ResponseEntity<Void> atualizarId(@PathVariable Integer id, @RequestBody ConsultaNewDTO objDTO) {
+		Consulta obj = service.fromDTO(objDTO);
 		if (service.findById(id).isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		obj.setId(id);
-		Consulta newObj = service.atualizarConsulta(obj);
+		obj.setCliente(service.findById(id).get().getCliente());
+		obj = service.atualizarConsulta(obj);
 		return ResponseEntity.noContent().build();
 	}
 
