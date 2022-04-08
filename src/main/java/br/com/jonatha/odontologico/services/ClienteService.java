@@ -23,6 +23,9 @@ public class ClienteService {
 	@Autowired
 	EnderecoRepository enderecoRepository;
 
+	@Autowired
+	CepService cepService;
+
 	// CREATE
 	@Transactional
 	public Cliente inserirCliente(Cliente obj) {
@@ -79,14 +82,16 @@ public class ClienteService {
 		
 		//adicionando informações ao objeto endereço
 		Endereco end = new Endereco();
+		end = cepService.buscaEndereco(objDTO.getCep());
 		end.setCliente(obj);
 		end.setCep(objDTO.getCep());
-		end.setLogradouro(objDTO.getLogradouro());
+
+		/*end.setLogradouro(objDTO.getLogradouro());
 		end.setNumero(objDTO.getNumero());
 		end.setComplemento(objDTO.getComplemento());
 		end.setBairro(objDTO.getBairro());
 		end.setCidade(objDTO.getCidade());
-		end.setEstado(objDTO.getEstado());
+		end.setEstado(objDTO.getEstado());*/
 		
 		obj.getTelefones().add(objDTO.getTelefone1());
 		if (objDTO.getTelefone2() != null) {

@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 import br.com.jonatha.odontologico.domain.Cliente;
 import br.com.jonatha.odontologico.domain.Consulta;
-import br.com.jonatha.odontologico.dto.ClienteNewDTO;
 import br.com.jonatha.odontologico.dto.ConsultaNewDTO;
 import br.com.jonatha.odontologico.repositories.ConsultaRepository;
 
@@ -20,6 +20,9 @@ public class ConsultaService {
 	@Autowired
 	ConsultaRepository repo;
 
+	@Autowired
+	ClienteService clienteService;
+	
 	// CREATE
 	public Consulta inserirConsulta(Consulta obj) {
 		obj = repo.save(obj);
@@ -64,4 +67,17 @@ public class ConsultaService {
 		
 		return obj;
 	}
+	//INSERIR AUTENTICAÇÃO DE USUARIO
+	// CONSULTA PAGINADA
+	/*
+	public Page<Consulta> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+	
+		serSS user = UserService.authenticated();
+		if (user == null) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
+		Cliente cliente =  clienteService.find(user.getId());
+		return repo.findByCliente(cliente, pageRequest);
+	}*/
 }

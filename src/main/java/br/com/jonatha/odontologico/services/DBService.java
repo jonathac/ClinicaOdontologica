@@ -47,7 +47,7 @@ public class DBService {
 		Cliente cli1 = new Cliente("Jonatha Cassio", "joaobatista@gmail.com", "123456", "43073985050", false, null, null, sdf.parse("16/02/1993"));
 		cli1.getTelefones().addAll(Arrays.asList("27363323", "93838393"));
 		
-		Endereco e1 = new Endereco("59155370", "Rua estrada para Cajupiranga", "5", null, "Jardim Planalto", "Parnamirim", "RN", cli1);
+		Endereco e1 = new Endereco("59155370", "Rua estrada para Cajupiranga", "Jardim Planalto", "Parnamirim", "RN", cli1);
 		cli1.getEndereco().addAll(Arrays.asList(e1));
 		
 		Consulta cons1 = new Consulta(sdf.parse("30/03/2022"), sdfHH.parse("10:00"), "Manutenção Aparelho",cli1);

@@ -60,12 +60,13 @@ public class UsuarioResource {
 
 	// UPDATE
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarId(@PathVariable Integer id, @RequestBody Usuario obj) {
+	public ResponseEntity<Void> atualizarId(@PathVariable Integer id, @Valid @RequestBody UsuarioNewDTO objDto) {
+		Usuario obj = service.fromDto(objDto);
 		if (service.findById(id).isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		obj.setId(id);
-		Usuario newObj = service.atualizarUsuario(obj);
+		obj = service.atualizarUsuario(obj);
 		return ResponseEntity.noContent().build();
 	}
 

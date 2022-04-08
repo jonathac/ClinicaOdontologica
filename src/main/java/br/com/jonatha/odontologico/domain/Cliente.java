@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
+import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
@@ -20,6 +21,7 @@ import br.com.jonatha.odontologico.domain.enums.Perfil;
 public class Cliente extends Usuario {
 	private static final long serialVersionUID = 1L;
 
+	@Column(unique=true)
 	private String cpf;
 	private boolean planoSaude;
 	private String nomePlanoSaude;
@@ -31,6 +33,7 @@ public class Cliente extends Usuario {
 	// Relacionamento entre Cliente e Endereço
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Endereco> endereco = new ArrayList<>();
+
 
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private List<Consulta> consulta = new ArrayList<>();

@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.br.CPF;
@@ -41,9 +42,10 @@ public class ClienteNewDTO implements Serializable{
 	private String numeroPlanoSaude;
 	
 	@NotEmpty(message = "Preenchimento obrigatório")
-	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
+	@Length(min = 3, max = 10, message = "O tamanho deve ser entre 5 e 10 caracteres")
+	@Pattern(regexp = "^[0-9]*$", message = "Apenas números")
 	private String cep; // consumir cep por api
-
+/*
 	@NotEmpty(message = "Preenchimento obrigatório")
 	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
 	private String logradouro;
@@ -63,7 +65,8 @@ public class ClienteNewDTO implements Serializable{
 
 	@NotEmpty(message = "Preenchimento obrigatório")
 	private String estado;
-	
+	*/
+
 	@NotEmpty(message="Preenchimento obrigatório")
 	private String telefone1;
 	private String telefone2;
@@ -144,54 +147,6 @@ public class ClienteNewDTO implements Serializable{
 		this.cep = cep;
 	}
 
-	public String getLogradouro() {
-		return logradouro;
-	}
-
-	public void setLogradouro(String logradouro) {
-		this.logradouro = logradouro;
-	}
-
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
-	public String getBairro() {
-		return bairro;
-	}
-
-	public void setBairro(String bairro) {
-		this.bairro = bairro;
-	}
-
-	public String getCidade() {
-		return cidade;
-	}
-
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
-	}
-
-	public String getEstado() {
-		return estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
 	public String getTelefone1() {
 		return telefone1;
 	}
@@ -215,5 +170,4 @@ public class ClienteNewDTO implements Serializable{
 	public void setTelefone3(String telefone3) {
 		this.telefone3 = telefone3;
 	}
-	
 }

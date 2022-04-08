@@ -60,12 +60,13 @@ public class ClienteResource {
 
 	// UPDATE
 	@PutMapping("/{id}")
-	public ResponseEntity<Void> atualizarId(@PathVariable Integer id, @RequestBody Cliente obj) {
+	public ResponseEntity<Void> atualizarId(@PathVariable Integer id,@Valid @RequestBody ClienteNewDTO ClienteDTO) {
+		Cliente obj = service.fromDTO(ClienteDTO);	
 		if (service.findById(id).isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 		obj.setId(id);
-		Cliente newObj = service.atualizarCliente(obj);
+		obj = service.atualizarCliente(obj);
 		return ResponseEntity.noContent().build();
 	}
 

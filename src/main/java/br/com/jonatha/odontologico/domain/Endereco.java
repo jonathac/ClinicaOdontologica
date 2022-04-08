@@ -28,11 +28,9 @@ public class Endereco implements Serializable {
 	private Integer id;
 	private String cep; // consumir cep por api
 	private String logradouro;
-	private String numero;
-	private String complemento;
 	private String bairro;
-	private String cidade;
-	private String estado;
+	private String localidade;
+	private String uf;
 
 	// Relacionamento entre Cliente e Endereço
 	@JsonIgnore
@@ -45,23 +43,14 @@ public class Endereco implements Serializable {
 	}
 
 	// Construtor com argurmentos
-	public Endereco(String cep, String logradouro, String numero, String complemento, String bairro,
-			String cidade, String estado, Cliente cliente) {
-		super();
+	public Endereco(String cep, String logradouro, String bairro, String localidade, String uf, Cliente cliente) {
 		this.cep = cep;
 		this.logradouro = logradouro;
-		this.numero = numero;
-		this.complemento = complemento;
 		this.bairro = bairro;
-		this.cidade = cidade;
-		this.estado = estado;
+		this.localidade = localidade;
+		this.uf = uf;
 		this.cliente = cliente;
 	}
-
-
-	/**
-	 * Geração de Getters e Setters
-	 */
 
 	public Integer getId() {
 		return id;
@@ -87,22 +76,6 @@ public class Endereco implements Serializable {
 		this.logradouro = logradouro;
 	}
 
-	public String getNumero() {
-		return numero;
-	}
-
-	public void setNumero(String numero) {
-		this.numero = numero;
-	}
-
-	public String getComplemento() {
-		return complemento;
-	}
-
-	public void setComplemento(String complemento) {
-		this.complemento = complemento;
-	}
-
 	public String getBairro() {
 		return bairro;
 	}
@@ -111,20 +84,20 @@ public class Endereco implements Serializable {
 		this.bairro = bairro;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public String getLocalidade() {
+		return localidade;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setLocalidade(String localidade) {
+		this.localidade = localidade;
 	}
 
-	public String getEstado() {
-		return estado;
+	public String getUf() {
+		return uf;
 	}
 
-	public void setEstado(String estado) {
-		this.estado = estado;
+	public void setUf(String uf) {
+		this.uf = uf;
 	}
 
 	public Cliente getCliente() {
@@ -133,11 +106,6 @@ public class Endereco implements Serializable {
 
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(id);
 	}
 
 	@Override
